@@ -1,0 +1,1 @@
+<span style="color:red;">Bookings not available on {{ $booking_date }}</span>

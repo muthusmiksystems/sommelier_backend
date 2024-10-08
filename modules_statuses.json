@@ -1,0 +1,7 @@
+{
+    "OrderSchedule": true,
+    "ThermalPrinter": true,
+    "SuperCache": true,
+    "CallAndOrder": true,
+    "DeliveryAreaPro": true
+}

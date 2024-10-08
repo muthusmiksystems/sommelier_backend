@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunksommelier=self.webpackChunksommelier||[]).push([[744],{1744:(e,s,r)=>{r.r(s),r.d(s,{default:()=>u});var n=r(9950),t=r(8429),l=r(4414);class o extends n.Component{render(){return(0,l.jsx)(t.C5,{to:"/"})}}const u=o}}]);
