@@ -1,0 +1,99 @@
+
+<?php $__env->startSection("title"); ?>
+Delivery Guys | Dashboard
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
+
+<div class="content mt-3">
+    <div class="d-flex justify-content-between my-2">
+        <h3><strong>Delivery Guys</strong></h3>
+        <div>
+            <?php if(config('setting.iHaveFoodomaaDeliveryApp') == "true"): ?>
+            <a href="<?php echo e(route('admin.deliveryEagleView')); ?>"
+                class="btn btn-secondary btn-labeled btn-labeled-left mr-2"> <b><i class="icon-target2"></i></b>
+                Eagle View</a>
+            <?php endif; ?>
+            <button type="button" class="btn btn-secondary btn-labeled btn-labeled-left" id="clearFilterAndState"> <b><i
+                        class="icon-reload-alt"></i></b> Reset All Filters</button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped" id="usersDatatable" width="100%">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th><?php echo e(config('setting.walletName')); ?></th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th class="text-center"><i class="
+                                icon-circle-down2"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('body').tooltip({selector: '[data-popup="tooltip"]'});
+     var datatable = $('#usersDatatable').DataTable({
+        processing: true,
+        serverSide: true,
+        stateSave: true,
+        lengthMenu: [ 10, 25, 50, 100, 200, 500 ],
+        order: [[ 0, "desc" ]],
+        ajax: '<?php echo e(route('admin.deliveryGuyUsersDatatable')); ?>',
+        columns: [
+            {data: 'id', visible: false, searchable: false},
+            {data: 'name'},
+            {data: 'email'},
+            {data: 'phone'},
+            {data: 'wallet', sortable: false, searchable: false,},
+            {data: 'status', sortable: false, searchable: false,},
+            {data: 'created_at'},
+            {data: 'action', sortable: false, searchable: false},
+        ],
+        colReorder: true,
+        drawCallback: function( settings ) {
+            $('select').select2({
+               minimumResultsForSearch: Infinity,
+               width: 'auto'
+            });
+        },
+        scrollX: true,
+        scrollCollapse: true,
+        dom: '<"custom-processing-banner"r>flBtip',
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search with anything...',
+            lengthMenu: '_MENU_',
+            paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' },
+            processing: '<i class="icon-spinner10 spinner position-left mr-1"></i>Waiting for server response...'
+        },
+       buttons: {
+               dom: {
+                   button: {
+                       className: 'btn btn-default'
+                   }
+               },
+               buttons: [
+                   {extend: 'csv', filename: 'delivery-guys-'+ new Date().toISOString().slice(0,10), text: 'Export as CSV'},
+               ]
+           }
+    });
+
+     $('#clearFilterAndState').click(function(event) {
+        if (datatable) {
+            datatable.state.clear();
+            window.location.reload();
+        }
+     });
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\Sommelier\resources\views/admin/manageDeliveryGuys.blade.php ENDPATH**/ ?>
